@@ -12,17 +12,14 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const slugs: { slug: string }[] = [];
-  
-  for (const key of Object.keys(BLOGS_DATA)) {
-    const blog = BLOGS_DATA[key];
-    slugs.push({ slug: blog.slug });
-    for (const alias of blog.aliases) {
-      slugs.push({ slug: alias });
-    }
-  }
-  
-  return slugs;
+  return [
+    { slug: "artificialintelligence" },
+    { slug: "cloudcomputing" },
+    { slug: "cybersecurity" },
+    { slug: "digitalmarketing" },
+    { slug: "graphicdesigning" },
+    { slug: "webdevelopmentblog" },
+  ];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

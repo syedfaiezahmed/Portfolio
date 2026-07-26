@@ -21,20 +21,6 @@ const nextConfig = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/blog",
-        destination: "/#blog",
-        permanent: true,
-      },
-      {
-        source: "/blogs",
-        destination: "/#blog",
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
