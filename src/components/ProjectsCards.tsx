@@ -1,12 +1,10 @@
-import React from 'react';
-
 interface ProjectSectionProps {
   imgUrl: string;
   title: string;
   description: string;
 }
 
-const ProjectSection: React.FC<ProjectSectionProps> = ({ imgUrl, title, description }) => {
+const ProjectSection = ({ imgUrl, title, description }: ProjectSectionProps) => {
   return (
     <div>
       <div

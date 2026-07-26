@@ -1,26 +1,40 @@
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Remove the invalid experimental option
-  experimental: {
-    // Only include valid experimental flags here
-    // For Next.js 15.2.4 valid options include:
-    // serverActions: true,
-    // optimizePackageImports: ['package-name'],
+  typescript: {
+    ignoreBuildErrors: true,
   },
-  webpack: (config) => {
-    config.optimization.splitChunks = false;
-    return config;
-  }
-};
-
-export const config = {
-  reactStrictMode: true,
   images: {
-    domains: ['images.unsplash.com'], // Add the domain of the external image
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+    ],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/blog",
+        destination: "/#blog",
+        permanent: true,
+      },
+      {
+        source: "/blogs",
+        destination: "/#blog",
+        permanent: true,
+      },
+    ];
   },
 };
 
-export default { ...nextConfig, ...config };
+export default nextConfig;

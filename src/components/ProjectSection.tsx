@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Github, Rocket } from "lucide-react";
 import Image from "next/image";
@@ -18,74 +17,63 @@ const ProjectSection = () => {
   const projects: Project[] = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce using Next.js.",
-      tags: ["Next.js", "Tailwind CSS", "Sanity"],
-      imageUrl: "/images/e-commerce.jpg",
-      githubUrl: "https://github.com/syedfaiezahmed/Hackathone-Market-Place-main",
-      liveUrl: "https://hackathone-market-place-main.vercel.app/",
+      title: "AI-Powered ERP System",
+      description: "Complete ERP platform including Accounting, Inventory, CRM, Finance, Reporting, User Roles, AI Insights and Automation.",
+      tags: ["Next.js", "Node.js", "MySQL", "Python"],
+      imageUrl: "/images/project-ai-erp.png",
+      githubUrl: "https://github.com/syedfaiezahmed",
     },
     {
       id: 2,
-      title: "Portfolio Website",
-      description: "Modern portfolio with animations and responsive design.",
-      tags: ["Next.js", "Framer Motion", "Tailwind CSS"],
-      imageUrl: "/images/portfolio.jpg",
-      githubUrl: "https://github.com/syedfaiezahmed/Portfolio",
+      title: "Education Institute Management SaaS",
+      description: "Complete SaaS solution for schools including Student Management, Fee Management, Attendance, Teachers Portal, and Finance.",
+      tags: ["Next.js", "React", "Node.js", "PostgreSQL"],
+      imageUrl: "/images/project-school-saas.png",
+      githubUrl: "https://github.com/syedfaiezahmed",
     },
     {
       id: 3,
-      title: "Ai-assistant",
-      description: "Ai-assistant for searching.",
-      tags: ["HTML", "CSS", "JavaScript"],
-      imageUrl: "/images/ai-assistant.jpg",
-      liveUrl: "https://ai-assistant-lovat-eta.vercel.app/",
-      githubUrl: "https://github.com/syedfaiezahmed/Ai-assistant",
+      title: "Business Automation Engine",
+      description: "Business workflow automation platform with AI-powered reporting, analytics dashboards and approval workflows.",
+      tags: ["Python", "FastAPI", "React", "MongoDB"],
+      imageUrl: "/images/project-automation-engine.png",
+      githubUrl: "https://github.com/syedfaiezahmed",
     },
     {
       id: 4,
-      title: "Website Design",
-      description: "Productivity app with real-time updates.",
-      tags: ["HTML", "CSS"],
-      imageUrl: "/images/web-design.jpg",
-      githubUrl: "https://github.com/syedfaiezahmed/Web-design",
-      liveUrl: "https://web-design-zeta-one.vercel.app/",
+      title: "Financial Analytics & ERP Dashboard",
+      description: "Interactive financial analytics dashboard with KPIs, revenue tracking, expenses, reporting and accounting insights.",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Python"],
+      imageUrl: "/images/project-financial-dashboard.png",
+      githubUrl: "https://github.com/syedfaiezahmed",
     },
     {
       id: 5,
-      title: "File Converter",
-      description: "Excel file converter.",
-      tags: ["Python", "Streamlit", "Pandas"],
-      imageUrl: "/images/file-converter.jpg",
-      githubUrl: "https://github.com/syedfaiezahmed/file-converter",
-      liveUrl: "https://syedfaiezahmed-file-converter-file-converter-rwjusx.streamlit.app/",
-    },
-    {
-      id: 6,
-      title: "Unit Converter",
-      description: "Unit converter.",
-      tags: ["Python", "Streamlit", "Pandas"],
-      imageUrl: "/images/unit-converter.jpg",
-      githubUrl: "https://github.com/syedfaiezahmed/unit-cnverter",
-      liveUrl: "https://syedfaiezahmed-unit-cnverter-unit-converter-gx0rla.streamlit.app/",
+      title: "CRM & Lead Management Platform",
+      description: "Enterprise CRM for customer management, lead tracking, sales pipeline and follow-up automation.",
+      tags: ["React", "Node.js", "Express.js", "MySQL"],
+      imageUrl: "/images/project-crm-platform.png",
+      githubUrl: "https://github.com/syedfaiezahmed",
     },
   ];
 
   return (
-    <section id="projects" className="py-8 md:py-12 lg:py-8 bg-[#121212]">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section id="projects" className="py-12 md:py-16 bg-transparent text-white">
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Title Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            My <span className="bg-gradient-to-r from-blue-600 to-purple-700 bg-clip-text text-transparent">Projects</span>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
+            Featured <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">Projects</span>
           </h2>
-          <p className="text-lg text-[#ADB7BE] max-w-2xl mx-auto">
-            A collection of my recent works
+          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto font-normal">
+            Scalable ERP solutions, FinTech applications, and AI-powered business platforms
           </p>
         </motion.div>
 
@@ -94,139 +82,104 @@ const ProjectSection = () => {
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ 
                 duration: 0.5,
-                delay: index * 0.1,
+                delay: index * 0.08,
                 ease: "easeOut"
               }}
-              whileHover={{ 
-                y: -8,
-                boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2)"
-              }}
-              className="group rounded-xl overflow-hidden border border-[#252525] bg-[#181818] hover:border-blue-500/30 transition-all duration-300"
+              whileHover={{ y: -6 }}
+              className="group rounded-2xl overflow-hidden border border-white/10 bg-[#121320]/80 backdrop-blur-xl hover:border-blue-500/40 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 flex flex-col justify-between"
             >
-              {/* Project Image */}
-              <div className="relative h-56 md:h-64 overflow-hidden">
-                <Image
-                  src={project.imageUrl}
-                  alt={project.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  priority={project.id <= 3}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                  <motion.div
-                    initial={{ y: 20 }}
-                    whileInView={{ y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-                  >
-                    <p className="text-white text-sm md:text-base">
-                      {project.description}
-                    </p>
-                  </motion.div>
+              <div>
+                {/* Project Image Container */}
+                <div className="relative h-56 md:h-60 overflow-hidden bg-[#0e0f18]">
+                  <Image
+                    src={project.imageUrl}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={project.id <= 3}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#121320] via-black/40 to-transparent opacity-80" />
+                </div>
+
+                {/* Project Details */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2.5 group-hover:text-blue-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+                  
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 font-medium"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              {/* Project Content */}
-              <div className="p-6">
-                <motion.h3 
-                  className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors"
-                  whileHover={{ x: 2 }}
+              {/* Links Footer */}
+              <div className="px-6 pb-6 pt-0 flex items-center gap-4">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center text-xs font-semibold text-slate-400 hover:text-blue-400 transition-colors gap-1.5"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                  }}
                 >
-                  {project.title}
-                </motion.h3>
-                
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <motion.span
-                      key={tag}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="text-xs px-3 py-1 rounded-full bg-[#252525] text-[#ADB7BE]"
-                    >
-                      {tag}
-                    </motion.span>
-                  ))}
-                </div>
-
-                {/* Links */}
-                <div className="flex gap-4">
-                  {project.githubUrl && (
-                    <motion.a
-                      whileHover={{ x: 3 }}
-                      whileTap={{ scale: 0.95 }}
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center text-sm text-[#ADB7BE] hover:text-blue-400 transition-colors"
-                    >
-                      <Github className="w-4 h-4 mr-1.5" />
-                      Code
-                    </motion.a>
-                  )}
-                  {project.liveUrl && (
-                    <motion.a
-                      whileHover={{ x: 3 }}
-                      whileTap={{ scale: 0.95 }}
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center text-sm text-[#ADB7BE] hover:text-purple-400 transition-colors"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-1.5" />
-                      Live Demo
-                    </motion.a>
-                  )}
-                </div>
+                  <span className="text-slate-500">🔒</span> Request Access
+                </a>
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-xs font-semibold text-purple-400 hover:text-purple-300 transition-colors gap-1.5"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Live Demo
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Contact CTA */}
+        {/* Contact CTA Banner */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-center mt-12"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mt-16 p-8 rounded-2xl bg-[#121320]/80 border border-white/10 backdrop-blur-xl shadow-xl"
         >
-          <motion.p 
-            className="text-lg text-[#ADB7BE] mb-6"
-            whileInView={{ opacity: [0.6, 1] }}
-            transition={{ duration: 0.5 }}
-          >
-            Interested in working together?
-          </motion.p>
-          <motion.a
-            whileHover={{ 
-              scale: 1.05,
-              boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.4)"
-            }}
-            whileTap={{ scale: 0.98 }}
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+            Interested in building a custom solution?
+          </h3>
+          <p className="text-slate-400 text-sm max-w-xl mx-auto mb-6">
+            Let's discuss how an AI-enabled ERP or automated web application can grow your business.
+          </p>
+          <a
             href="#contact"
-            className="inline-flex items-center px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-700 text-white font-medium hover:shadow-lg transition-all"
+            className="inline-flex items-center px-7 py-3 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all gap-2"
           >
             Contact Me
-            <motion.span 
-              className="ml-2"
-              animate={{
-                x: [0, 3, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                repeatType: "reverse",
-                duration: 1.5,
-                ease: "easeInOut"
-              }}
-            >
-              <Rocket className="w-5 h-5" />
-            </motion.span>
-          </motion.a>
+            <Rocket className="w-4 h-4" />
+          </a>
         </motion.div>
       </div>
     </section>

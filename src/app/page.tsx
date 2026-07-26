@@ -1,5 +1,5 @@
-import Image from "next/image";
 import HeroSection from "@/components/HeroSection";
+import TickerBanner from "@/components/TickerBanner";
 import Navbar from "@/components/Navbar";
 import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
@@ -9,33 +9,34 @@ import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#121212]">
+    <main className="flex min-h-screen flex-col bg-[#0b0c10] text-white overflow-x-hidden">
       <Navbar />
-      <div className="container mx-auto mt-24 px-4 sm:px-6 lg:px-8 py-4">
-        {/* Hero Section with ID */}
-        <section id="home" className="mt-16 scroll-mt-24">
-          <HeroSection />
-        </section>
+      
+      {/* Hero Section */}
+      <HeroSection />
 
-        {/* About Section with ID */}
-        <section id="about" className="scroll-mt-24">
+      {/* Sliding Marquee Ticker Strip below Hero */}
+      <TickerBanner />
+
+      {/* Main Content Sections */}
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+        <section id="about" className="scroll-mt-20">
           <AboutSection />
         </section>
 
-        {/* Projects Section with ID */}
-        <section id="projects" className="scroll-mt-24">
+        <section id="projects" className="scroll-mt-20">
           <ProjectSection />
         </section>
 
-        {/* Blog Section with ID */}
-        <section id="blog" className="scroll-mt-24">
+        <section id="blog" className="scroll-mt-20">
           <Blogs />
         </section>
-        {/* Contact Section with ID */}
-        <section id="contact" className="scroll-mt-24">
+
+        <section id="contact" className="scroll-mt-20">
           <Contact />
         </section>
       </div>
+
       <Footer />
     </main>
   );

@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { FiClock, FiUser, FiArrowRight, FiBookmark } from "react-icons/fi";
+import Link from "next/link";
 
 interface BlogPost {
   id: number;
@@ -15,7 +16,6 @@ interface BlogPost {
 }
 
 const BlogCard: React.FC<BlogPost> = ({
-  id,
   title,
   excerpt,
   date,
@@ -26,115 +26,89 @@ const BlogCard: React.FC<BlogPost> = ({
 }) => {
   const [imgError, setImgError] = useState(false);
 
-  const getCategoryPath = (category: string): string => {
+  const getCategoryPath = (cat: string): string => {
     const categoryMap: Record<string, string> = {
-      "Web Development": "Webdevelopmentblog",
-      "Digital Marketing": "Digitalmarketing",
-      "Graphic Designing": "Graphicdesigning",
-      "Artificial Intelligence": "Artificialintelligence",
-      "Cybersecurity": "Cybersecurity",
-      "Cloud Computing": "Cloudcomputing"
+      "ERP Systems": "webdevelopmentblog",
+      "FinTech": "digitalmarketing",
+      "AI Engineering": "artificialintelligence",
+      "Business Automation": "cloudcomputing",
+      "Accounting Tech": "cybersecurity",
+      "SaaS Architecture": "graphicdesigning"
     };
-    return `/blogs/${categoryMap[category]}`;
+    return categoryMap[cat] ? `/blogs/${categoryMap[cat]}` : "#blog";
   };
 
   const blogPath = getCategoryPath(category);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      whileHover={{
-        y: -8,
-        boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
-      }}
-      className="group bg-[#181818] rounded-xl overflow-hidden border border-[#252525] hover:border-blue-500/30 transition-all duration-300"
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ y: -8 }}
+      className="group bg-[#121320]/80 rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/40 hover:shadow-2xl hover:shadow-purple-500/10 backdrop-blur-xl transition-all duration-300 flex flex-col justify-between"
     >
-      <a href={blogPath} className="block">
-        <div className="relative h-48 md:h-56 lg:h-64 overflow-hidden">
+      <Link href={blogPath} className="block">
+        {/* Enlarged image container */}
+        <div className="relative h-56 sm:h-64 overflow-hidden bg-[#0e0f18] border-b border-white/5">
           {imgError ? (
-            <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-              <span className="text-gray-400">Image not available</span>
+            <div className="w-full h-full bg-slate-900 flex items-center justify-center">
+              <span className="text-slate-500 text-xs">Image unavailable</span>
             </div>
           ) : (
-            <motion.img
+            <img
               src={imageUrl}
               alt={title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
               onError={() => setImgError(true)}
               loading="lazy"
-              initial={{ opacity: 0.9 }}
-              whileHover={{ opacity: 1 }}
             />
           )}
-          <motion.button
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            whileTap={{ scale: 0.95 }}
-            className="absolute bottom-3 right-3 p-2 bg-[#252525] rounded-full hover:bg-[#333333] transition-colors shadow-sm"
-            onClick={(e) => e.preventDefault()}
+          <button
+            className="absolute bottom-4 right-4 p-2.5 bg-[#10111a]/90 backdrop-blur-md rounded-full hover:bg-white/20 transition-colors shadow-md border border-white/10"
+            onClick={(e: React.MouseEvent) => e.preventDefault()}
+            aria-label="Bookmark article"
           >
-            <FiBookmark className="text-slate-200 hover:text-purple-400" />
-          </motion.button>
+            <FiBookmark className="text-slate-300 hover:text-purple-400 text-sm" />
+          </button>
         </div>
 
-        <div className="p-5">
-          <div className="flex justify-between items-start mb-3">
-            <motion.span
-              whileHover={{ scale: 1.05 }}
-              className="inline-block px-3 py-1 text-xs font-semibold bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-full"
-            >
+        {/* Enlarged Details padding and text sizes */}
+        <div className="p-6 sm:p-8">
+          <div className="flex justify-between items-center mb-4">
+            <span className="inline-block px-3.5 py-1 text-xs font-semibold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-full">
               {category}
-            </motion.span>
-            <span className="text-xs text-[#ADB7BE]">{date.split(",")[0]}</span>
+            </span>
+            <span className="text-xs text-slate-400 font-medium">{date}</span>
           </div>
 
-          <motion.h3
-            className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors"
-            whileHover={{ x: 3 }}
-          >
+          <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-3 group-hover:text-blue-400 transition-colors leading-tight line-clamp-2">
             {title}
-          </motion.h3>
+          </h3>
 
-          <motion.p
-            className="text-[#ADB7BE] mb-4 line-clamp-2 text-sm"
-            whileHover={{ opacity: 0.9 }}
-          >
+          <p className="text-slate-300 text-sm sm:text-base line-clamp-2 leading-relaxed mb-6 font-normal">
             {excerpt}
-          </motion.p>
+          </p>
 
-          <div className="flex justify-between items-center">
-            <div className="flex flex-wrap items-center gap-4 text-xs text-[#ADB7BE]">
-              <motion.div className="flex items-center" whileHover={{ x: 3 }}>
-                <FiClock className="mr-1.5 text-blue-400" />
+          <div className="flex justify-between items-center pt-4 border-t border-white/10 text-xs sm:text-sm text-slate-400 font-medium">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center">
+                <FiClock className="mr-1.5 text-blue-400 text-base" />
                 {readTime}
-              </motion.div>
-              <motion.div className="flex items-center" whileHover={{ x: 3 }}>
-                <FiUser className="mr-1.5 text-purple-400" />
+              </div>
+              <div className="flex items-center">
+                <FiUser className="mr-1.5 text-purple-400 text-base" />
                 {author}
-              </motion.div>
+              </div>
             </div>
 
-            <div className="flex items-center text-sm font-medium text-blue-400 hover:text-purple-400 transition-colors">
-              Read More{" "}
-              <motion.span
-                className="ml-1.5"
-                animate={{
-                  x: [0, 3, 0],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  duration: 1.5,
-                  ease: "easeInOut",
-                }}
-              >
-                <FiArrowRight />
-              </motion.span>
+            <div className="flex items-center text-xs sm:text-sm font-bold text-blue-400 group-hover:text-purple-400 transition-colors">
+              Read Article <FiArrowRight className="ml-1.5 group-hover:translate-x-1.5 transition-transform" />
             </div>
           </div>
         </div>
-      </a>
+      </Link>
     </motion.div>
   );
 };
@@ -145,99 +119,99 @@ const BlogSection = () => {
   const blogPosts: BlogPost[] = [
     {
       id: 1,
-      title: "Modern Web Development in 2025",
-      excerpt: "Explore the cutting-edge technologies shaping the future of web development.",
-      date: "Jan 15, 2025",
+      title: "Building Scalable ERP Systems with Next.js & Python",
+      excerpt: "Architecting enterprise modular ERP solutions for accounting, inventory, and real-time business insights.",
+      date: "Jan 15, 2026",
       readTime: "8 min read",
       author: "Syed Faiez Ahmed",
-      category: "Web Development",
-      imageUrl: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80",
+      category: "ERP Systems",
+      imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80",
     },
     {
       id: 2,
-      title: "Digital Marketing Strategies That Convert",
-      excerpt: "Learn the most effective digital marketing techniques for today's competitive landscape.",
-      date: "Jan 28, 2025",
+      title: "AI Agents & Workflow Automation for Enterprise SaaS",
+      excerpt: "Integrating OpenAI and autonomous AI agents to automate business processes and reporting.",
+      date: "Jan 28, 2026",
       readTime: "6 min read",
       author: "Syed Faiez Ahmed",
-      category: "Digital Marketing",
-      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      category: "AI Engineering",
+      imageUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80",
     },
     {
       id: 3,
-      title: "Graphic Design Principles for Developers",
-      excerpt: "Essential design concepts every developer should know to create visually appealing interfaces.",
-      date: "Feb 18, 2025",
-      readTime: "5 min read",
+      title: "Financial Systems & Accounting Software Architecture",
+      excerpt: "Combining ICMA Pakistan financial principles with modern full-stack software development.",
+      date: "Feb 18, 2026",
+      readTime: "7 min read",
       author: "Syed Faiez Ahmed",
-      category: "Graphic Designing",
-      imageUrl: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+      category: "Accounting Tech",
+      imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80",
     },
     {
       id: 4,
-      title: "Artificial Intelligence in Modern Applications",
-      excerpt: "How artificial intelligence is transforming software development and user experiences.",
-      date: "Mar 5, 2025",
+      title: "FinTech Platform Engineering & Secure Payment Flows",
+      excerpt: "Designing high-performance transaction processing and interactive financial analytics dashboards.",
+      date: "Mar 5, 2026",
       readTime: "10 min read",
       author: "Syed Faiez Ahmed",
-      category: "Artificial Intelligence",
-      imageUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1385&q=80",
+      category: "FinTech",
+      imageUrl: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80",
     },
     {
       id: 5,
-      title: "Essential Cybersecurity Practices",
-      excerpt: "Protect your applications with these fundamental cybersecurity measures.",
-      date: "Mar 12, 2025",
+      title: "Automating Complex Business Workflows with Microservices",
+      excerpt: "Eliminating manual data entry with event-driven automation engines and FastAPI backend microservices.",
+      date: "Mar 12, 2026",
       readTime: "7 min read",
       author: "Syed Faiez Ahmed",
-      category: "Cybersecurity",
-      imageUrl: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      category: "Business Automation",
+      imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80",
     },
     {
       id: 6,
-      title: "Cloud Computing Explained",
-      excerpt: "Understanding cloud services and how they can benefit your development workflow.",
-      date: "Apr 2, 2025",
+      title: "Modern Multi-Tenant SaaS Infrastructure & Data Security",
+      excerpt: "Best practices for multi-tenant isolation, role-based access control, and PostgreSQL database schemas.",
+      date: "Apr 2, 2026",
       readTime: "9 min read",
       author: "Syed Faiez Ahmed",
-      category: "Cloud Computing",
-      imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80",
+      category: "SaaS Architecture",
+      imageUrl: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80",
     },
   ];
 
   const visiblePosts = showAll ? blogPosts : blogPosts.slice(0, 3);
 
   return (
-    <section id="blog" className="pt-6 pb-8 md:pb-10 bg-[#121212]">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section id="blog" className="py-12 md:py-16 bg-transparent text-white">
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-8"
+          className="text-center mb-16"
         >
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
             Latest{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-700 bg-clip-text text-transparent">
-              Insights
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">
+              Articles
             </span>
           </h2>
-          <p className="text-[#ADB7BE] max-w-2xl mx-auto">
-            Discover expert articles from our team
+          <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto font-normal">
+            Technical insights on ERP architecture, FinTech engineering, AI automation & SaaS
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Enlarged blog grid layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
           {visiblePosts.map((post, index) => (
             <motion.div
               key={post.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                delay: index * 0.1,
-                ease: "easeOut",
-              }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
             >
               <BlogCard {...post} />
             </motion.div>
@@ -247,36 +221,19 @@ const BlogSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-center mt-8"
+          className="text-center mt-12"
         >
-          <motion.button
+          <button
             onClick={() => setShowAll(!showAll)}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.4)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-700 text-white font-medium hover:shadow-lg transition-all"
+            className="inline-flex items-center px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all gap-2"
           >
             {showAll ? "Show Less" : "View All Articles"}
-            <motion.span
-              className="ml-2"
-              animate={{
-                x: showAll ? 0 : [0, 3, 0],
-                rotate: showAll ? 180 : 0,
-              }}
-              transition={{
-                repeat: showAll ? 0 : Infinity,
-                repeatType: "reverse",
-                duration: 1.5,
-                ease: "easeInOut",
-              }}
-            >
-              <FiArrowRight className="w-5 h-5" />
-            </motion.span>
-          </motion.button>
+            <FiArrowRight className={`w-4 h-4 transition-transform ${showAll ? "rotate-180" : ""}`} />
+          </button>
         </motion.div>
+
       </div>
     </section>
   );

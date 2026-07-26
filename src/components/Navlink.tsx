@@ -4,7 +4,7 @@ interface NavLinkProps {
   href: string;
   title: string;
 }
-const NavLink: React.FC<NavLinkProps> = ({ href, title }) => {
+const NavLink = ({ href, title }: NavLinkProps) => {
   return (
     <Link
       href={href}

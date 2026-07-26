@@ -32,7 +32,7 @@ export default function Contact() {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setError(null); // Clear error when user types
+    setError(null);
   };
 
   const validateForm = () => {
@@ -70,53 +70,61 @@ export default function Contact() {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to send message");
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Failed to send message");
       }
 
       setSubmitSuccess(true);
       setFormData({ name: "", email: "", message: "" });
-    } catch (error) {
-      console.error("Error:", error);
-      setError(error instanceof Error ? error.message : "Something went wrong. Please try again.");
+    } catch (err) {
+      console.error("Error:", err);
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section id="contact" className="pt-6 pb-10 md:pb-16 bg-[#121212]">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-            Get in{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-700 bg-clip-text text-transparent">
-              Touch
-            </span>
+    <section id="contact" className="py-16 md:py-24 bg-transparent text-white">
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
+            Get in <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">Touch</span>
           </h2>
-          <p className="text-sm md:text-base text-[#ADB7BE] max-w-xs md:max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? I'd love to hear from you!
+          <p className="text-base sm:text-lg text-slate-400 max-w-xl mx-auto font-normal">
+            Let's discuss your next ERP system, AI integration, or enterprise SaaS solution.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-          {/* Contact Information */}
-          <div className="space-y-4 md:space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+          
+          {/* Contact Details Column */}
+          <div className="lg:col-span-5 space-y-4">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex items-start gap-3 p-4 md:p-6 bg-[#181818] rounded-lg md:rounded-xl border border-[#252525] hover:border-purple-500/30 transition-colors"
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="flex items-start gap-4 p-6 bg-[#121320]/80 border border-white/10 rounded-2xl backdrop-blur-xl shadow-xl hover:border-blue-500/40 transition-all"
             >
-              <div className="p-2 md:p-3 bg-gradient-to-r from-blue-600 to-purple-700 rounded-md md:rounded-lg">
-                <FiMail className="text-white text-lg md:text-xl" />
+              <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl shrink-0">
+                <FiMail className="text-blue-400 text-xl" />
               </div>
               <div>
-                <h3 className="text-base md:text-xl font-semibold text-white mb-1">Email</h3>
+                <h3 className="text-base font-bold text-white mb-1">Email Direct</h3>
                 <a
                   href="mailto:syedfaiezahmed@gmail.com"
-                  className="text-xs md:text-sm text-[#ADB7BE] hover:text-blue-400 transition-colors break-all"
+                  className="text-xs sm:text-sm text-slate-300 hover:text-blue-400 transition-colors break-all"
                 >
                   syedfaiezahmed@gmail.com
                 </a>
@@ -126,139 +134,140 @@ export default function Contact() {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="flex items-start gap-3 p-4 md:p-6 bg-[#181818] rounded-lg md:rounded-xl border border-[#252525] hover:border-blue-500/30 transition-colors"
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="flex items-start gap-4 p-6 bg-[#121320]/80 border border-white/10 rounded-2xl backdrop-blur-xl shadow-xl hover:border-purple-500/40 transition-all"
             >
-              <div className="p-2 md:p-3 bg-gradient-to-r from-purple-600 to-blue-700 rounded-md md:rounded-lg">
-                <FiMapPin className="text-white text-lg md:text-xl" />
+              <div className="p-3 bg-purple-500/10 border border-purple-500/20 rounded-xl shrink-0">
+                <FiPhone className="text-purple-400 text-xl" />
               </div>
               <div>
-                <h3 className="text-base md:text-xl font-semibold text-white mb-1">
-                  Location
-                </h3>
-                <p className="text-xs md:text-sm text-[#ADB7BE]">Karachi, Pakistan</p>
+                <h3 className="text-base font-bold text-white mb-1">Phone / WhatsApp</h3>
+                <a
+                  href="tel:+923340396523"
+                  className="text-xs sm:text-sm text-slate-300 hover:text-purple-400 transition-colors"
+                >
+                  +92 3340396523
+                </a>
               </div>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex items-start gap-3 p-4 md:p-6 bg-[#181818] rounded-lg md:rounded-xl border border-[#252525] hover:border-purple-500/30 transition-colors"
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="flex items-start gap-4 p-6 bg-[#121320]/80 border border-white/10 rounded-2xl backdrop-blur-xl shadow-xl hover:border-indigo-500/40 transition-all"
             >
-              <div className="p-2 md:p-3 bg-gradient-to-r from-blue-600 to-purple-700 rounded-md md:rounded-lg">
-                <FiPhone className="text-white text-lg md:text-xl" />
+              <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl shrink-0">
+                <FiMapPin className="text-indigo-400 text-xl" />
               </div>
               <div>
-                <h3 className="text-base md:text-xl font-semibold text-white mb-1">Phone</h3>
-                <a
-                  href="tel:+923340396523"
-                  className="text-xs md:text-sm text-[#ADB7BE] hover:text-blue-400 transition-colors"
-                >
-                  +92 3340396523
-                </a>
+                <h3 className="text-base font-bold text-white mb-1">Location</h3>
+                <p className="text-xs sm:text-sm text-slate-300">Karachi, Pakistan</p>
               </div>
             </motion.div>
           </div>
 
-          {/* Contact Form */}
+          {/* Form Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="p-5 md:p-8 bg-[#181818] rounded-lg md:rounded-xl border border-[#252525]"
+            className="lg:col-span-7 p-6 sm:p-8 bg-[#121320]/90 border border-white/10 rounded-2xl backdrop-blur-xl shadow-2xl"
           >
             {submitSuccess ? (
-              <div className="text-center py-6 md:py-8">
-                <div className="mx-auto flex items-center justify-center h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-500/20 mb-3 md:mb-4">
-                  <FiSend className="h-5 w-5 md:h-6 md:w-6 text-green-400" />
+              <div className="text-center py-8">
+                <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-emerald-500/20 text-emerald-400 mb-4 border border-emerald-500/30">
+                  <FiSend className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2">
-                  Message Sent!
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  Message Sent Successfully!
                 </h3>
-                <p className="text-xs md:text-sm text-[#ADB7BE] mb-4 md:mb-6">
-                  Thank you for reaching out. I'll respond to you soon.
+                <p className="text-xs sm:text-sm text-slate-300 mb-6">
+                  Thank you for reaching out. I will respond to your message shortly.
                 </p>
                 <button
                   onClick={() => setSubmitSuccess(false)}
-                  className="px-4 py-1.5 md:px-6 md:py-2 text-sm md:text-base bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-md md:rounded-lg hover:opacity-90 transition-opacity"
+                  className="px-6 py-2.5 text-xs font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all"
                 >
                   Send Another Message
                 </button>
               </div>
             ) : (
-                <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 {error && (
-                  <div className="p-3 text-sm text-red-400 bg-red-900/20 rounded-md border border-red-800">
-                  {error}
+                  <div className="p-3 text-xs text-rose-300 bg-rose-950/40 rounded-xl border border-rose-800/60">
+                    {error}
                   </div>
                 )}
 
                 <div>
                   <label
-                  htmlFor="name"
-                  className="block text-xs md:text-sm font-medium text-[#ADB7BE] mb-1"
+                    htmlFor="name"
+                    className="block text-xs font-medium text-slate-300 mb-1.5"
                   >
-                  Your Name
+                    Your Name
                   </label>
                   <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiUser className="text-gray-400 text-sm md:text-base" />
-                  </div>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="bg-[#252525] border border-[#333333] text-white text-xs md:text-sm rounded-md md:rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-9 md:pl-10 p-2 md:p-2.5"
-                    placeholder="John Doe"
-                  />
+                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <FiUser className="text-sm" />
+                    </div>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="bg-[#0e0f18] border border-white/15 text-white placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 block w-full pl-10 pr-4 py-3 text-xs sm:text-sm rounded-xl transition-all"
+                      placeholder="John Doe"
+                    />
                   </div>
                 </div>
 
                 <div>
                   <label
-                  htmlFor="email"
-                  className="block text-xs md:text-sm font-medium text-[#ADB7BE] mb-1"
+                    htmlFor="email"
+                    className="block text-xs font-medium text-slate-300 mb-1.5"
                   >
-                  Your Email
+                    Your Email Address
                   </label>
                   <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiMail className="text-gray-400 text-sm md:text-base" />
-                  </div>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="bg-[#252525] border border-[#333333] text-white text-xs md:text-sm rounded-md md:rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-9 md:pl-10 p-2 md:p-2.5"
-                    placeholder="john@example.com"
-                  />
+                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <FiMail className="text-sm" />
+                    </div>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="bg-[#0e0f18] border border-white/15 text-white placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 block w-full pl-10 pr-4 py-3 text-xs sm:text-sm rounded-xl transition-all"
+                      placeholder="john@example.com"
+                    />
                   </div>
                 </div>
 
                 <div>
                   <label
-                  htmlFor="message"
-                  className="block text-xs md:text-sm font-medium text-[#ADB7BE] mb-1"
+                    htmlFor="message"
+                    className="block text-xs font-medium text-slate-300 mb-1.5"
                   >
-                  Your Message
+                    Your Message
                   </label>
                   <div className="relative">
-                  <div className="absolute top-2.5 left-3">
-                    <FiMessageSquare className="text-gray-400 text-sm md:text-base" />
-                  </div>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    value={formData.message}
-                    onChange={handleChange}
-                      className="bg-[#252525] border border-[#333333] text-white text-xs md:text-sm rounded-md md:rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-9 md:pl-10 p-2 md:p-2.5"
-                      placeholder="Let's talk about your project..."
+                    <div className="absolute top-3.5 left-3.5 text-slate-400 pointer-events-none">
+                      <FiMessageSquare className="text-sm" />
+                    </div>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={4}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="bg-[#0e0f18] border border-white/15 text-white placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 block w-full pl-10 pr-4 py-3 text-xs sm:text-sm rounded-xl transition-all"
+                      placeholder="Tell me about your project requirements..."
                     />
                   </div>
                 </div>
@@ -266,43 +275,23 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full flex justify-center items-center px-4 py-2 md:px-6 md:py-3 text-sm md:text-base bg-gradient-to-r from-blue-600 to-purple-700 text-white font-medium rounded-md md:rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+                  className="w-full flex justify-center items-center gap-2 py-3 px-6 text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/25 transition-all disabled:opacity-50"
                 >
                   {isSubmitting ? (
-                    <>
-                      <svg
-                        className="animate-spin -ml-1 mr-2 h-4 w-4 md:h-5 md:w-5 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      Sending...
-                    </>
+                    <span>Sending Message...</span>
                   ) : (
                     <>
-                      Send Message
-                      <FiArrowRight className="ml-1 md:ml-2 transition-transform group-hover:translate-x-1" />
+                      <span>Send Message</span>
+                      <FiArrowRight className="text-sm" />
                     </>
                   )}
                 </button>
               </form>
             )}
           </motion.div>
+
         </div>
+
       </div>
     </section>
   );

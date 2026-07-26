@@ -1,4 +1,3 @@
-import React from "react";
 import NavLink from "./Navlink";
 
 const MenuOverlay = ({ links }: { links: any[] }) => {
